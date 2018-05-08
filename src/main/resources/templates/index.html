@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/modalTableScript.js"></script>
+    <script src="/js/postAjaxScript.js"></script>
+    <!-- <script src="/js/ajaxPut.js"></script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>crm</title>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="margin-top:20px;margin-bottom:20px;margin-left:50px">CRM</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5><b>1.Dane Firmy</b></h5>
+                </div>
+                <div class="panel-body">
+                    <form id="stackedForm">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-11">
+                                <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                        data-target="#pickCompany">Wybierz firme
+                                </button>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#addCompany">+
+                            </button>
+
+                        </div>
+                        <div id="fillForm">
+                            <div class="form-group col-md-12" style="display: none;">
+                                <label for="fillId">id:</label>
+                                <input type="text" class="form-control" id="fillId" readonly/>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="fillCompanyName">Nazwa firmy:</label>
+                                <input type="text" class="form-control" id="fillCompanyName" readonly/>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="fillNip">Nip:</label>
+                                    <input type="text" class="form-control" id="fillNip" readonly/>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="fillKrs">KRS:</label>
+                                    <input type="text" class="form-control" id="fillKrs" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="fillAdres">Adres:</label>
+                                <input type="text" class="form-control" id="fillAdres" readonly/>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="fillEmail">E-mail:</label>
+                                    <input type="text" class="form-control" id="fillEmail" readonly/>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="fillPhone">Numer telefonu:</label>
+                                    <input type="text" class="form-control" id="fillPhone" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-offset-2 col-md-3">
+            obok
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5><b>2. Informacje o wynikach</b></h5>
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                        </li>
+                    </ul>
+                        <div class="col-md-6">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="pickCompany" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;
+                </button>
+                <h4 class="modal-title">Wybierz firmę</h4>
+            </div>
+            <div class="modal-body">
+
+                <h2>Filter Table</h2>
+                <div class="row">
+                    <div style="margin-bottom:20px; margin-right:10px; margin-left:10px; padding:10px; background-color:#336699; color:white;">
+                        <p>Wyszukaj po <strong>nazwie firmy</strong>,
+                            <strong>Nipie</strong>, <strong>KRS</strong>,
+                            <strong>Adresie</strong>, <strong>E-mailu</strong>
+                            , <strong>nr tel</strong>:</p>
+                        <input class="form-control" id="inputFilter" type="text"
+                               placeholder="Search.."/>
+                    </div>
+                    <table id="companyTable"
+                           class="table table-bordered table-hover table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th class="companyName">Nazwa firmy</th>
+                            <th>nip</th>
+                            <th>krs</th>
+                            <th>adres</th>
+                            <th>email</th>
+                            <th>nr tel</th>
+                            <th>button</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal add-->
+<div id="addCompany" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;
+                </button>
+                <h4 class="modal-title">Dodaj firmę</h4>
+            </div>
+            <div class="modal-body">
+                <form id="saveForm">
+                    <div class="form-group col-md-12">
+                        <label for="saveCompanyName">Nazwa firmy:</label>
+                        <input type="text" class="form-control" id="saveCompanyName"/>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="saveNip">Nip:</label>
+                            <input type="text" class="form-control" id="saveNip"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="saveKrs">KRS:</label>
+                            <input type="text" class="form-control" id="saveKrs"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="saveAdres">Adres:</label>
+                        <input type="text" class="form-control" id="saveAdres"/>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="saveEmail">E-mail:</label>
+                            <input type="text" class="form-control" id="saveEmail"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="savePhone">Numer telefonu:</label>
+                            <input type="text" class="form-control" id="savePhone"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-sm-7" id="postResultDiv">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" form="saveForm" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>
